@@ -1,0 +1,82 @@
+@import "components";
+@import "custom";
+@import "mixins";
+@import "responsive";
+@import "variables";
+@import "select2";
+@import "innerpages";
+@import "style";
+@import "alignment";
+@import "bg_image";
+@import "common-classes";
+@import "popup";
+@import "general";
+@import "table";
+
+@import "components/background";
+@import "components/button";
+@import "components/links";
+@import "components/text";
+// ----------------------------------------------------Common Classes-----------------------------------------------------//
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @include body;
+    font-family: $primary-font, sans-serif;
+}
+p,
+a,
+span,
+label,
+.form-control {
+    font-family: $secondary-font;
+    font-weight: 400;
+}
+.btn,
+button {
+    font-family: $secondary-font;
+    font-weight: 600;
+}
+h1,
+h2 {
+    font-family: $primary-font;
+    font-weight: 600;
+}
+h3,
+h4,
+h5,
+h6 {
+    font-family: $secondary-font;
+    font-weight: 600;
+}
+@font-face {
+    font-family: $primary-font;
+    font-weight: 400;
+    src: url("../fonts/circular_book.otf");
+}
+
+@font-face {
+    font-family: $primary-font;
+    font-weight: 600;
+    src: url("../fonts/circular_medium.otf");
+}
+
+@font-face {
+    font-family: $primary-font;
+    font-weight: 700;
+    src: url("../fonts/circular_bold.otf");
+}
+@mixin bold {
+    font-family: $primary-font;
+    font-weight: 700;
+}
+@mixin semi-bold {
+    font-family: $primary-font;
+    font-weight: 600;
+}
+@mixin regular {
+    font-family: $primary-font;
+    font-weight: 400;
+}

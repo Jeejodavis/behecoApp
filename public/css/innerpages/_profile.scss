@@ -1,0 +1,232 @@
+// --------------------------------------------------------------Profile-------------------------------------------------------------//
+.business-profile {
+    .cover-bg {
+        border-radius: $b-rds-md;
+    }
+    .profile-pic {
+        margin: -100px auto 30px auto;
+    }
+    .general-info {
+        text-align: center;
+        h2,
+        p,
+        i {
+            text-align: center;
+        }
+        .overall-rating {
+            justify-content: center;
+        }
+        h2 {
+            @include text(30px, 35px, 600, $body-color);
+        }
+        .social-media {
+            @include flex-h-cntr;
+        }
+    }
+    .btn-plus,
+    .location-wrapper {
+        background-color: $white;
+    }
+    .nav-link {
+        border-radius: $b-rds;
+        padding: 10px 20px;
+        margin-right: 10px;
+        overflow: hidden;
+    }
+    .listing-card .image-wrapper {
+        height: 220px;
+    }
+}
+.business-list {
+    @include flex-v-cntr;
+    flex-wrap: nowrap;
+    padding: 10px;
+    .logo {
+        @include circle-image(50px);
+        overflow: hidden;
+        margin-right: 20px;
+        img {
+            width: 100%;
+        }
+    }
+    .name-list {
+        margin-bottom: 0;
+    }
+}
+.btn-b-list {
+    text-align: left;
+    justify-content: flex-start !important;
+    border-radius: $b-rds;
+    background-color: $white;
+    height: auto !important;
+    width: 100% !important;
+    .business-list {
+        padding: 20px 0;
+    }
+    h5 {
+        margin-bottom: 0 !important;
+    }
+}
+.btn-check:active + .btn-b-list,
+.btn-check:checked + .btn-b-list,
+.btn-b-list.active,
+.btn-b-list:active,
+.show > .btn-b-list.dropdown-toggle {
+    box-shadow: none;
+    background-color: rgba($color: $primary, $alpha: 1);
+    color: $white;
+    .logo {
+        border: 2px solid $secondary;
+    }
+}
+.subscription-card {
+    border-radius: $b-rds-md;
+    padding: 20px;
+    box-shadow: $box-shadow;
+    .amount {
+        text-align: center;
+        h3 {
+            @include text(18px, 18px, 600, $black9);
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-weight: 700;
+            margin-bottom: 30px;
+            span {
+                @include text(24px, 24px, 400, $black6);
+            }
+        }
+    }
+    .sub-cnt {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 22px;
+        img {
+            width: 18px;
+            margin-right: 20px;
+        }
+        p {
+            margin: -2px 0 0 0;
+            color: $black6 !important;
+        }
+    }
+    .sub-h2 {
+        padding: 10px 20px;
+        border-radius: $b-rds;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        color: $primary;
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+}
+.subscription-card.highlighted {
+    background-color: $tertiary;
+    color: $white;
+    h2,
+    h3,
+    p,
+    a,
+    span {
+        color: $white !important;
+    }
+    .btn {
+        background-color: $secondary !important;
+    }
+    .sub-h2 {
+        background-color: rgba($color: $white, $alpha: 0.3);
+    }
+}
+.notification-card {
+    .main-content {
+        width: 85%;
+        display: flex;
+        align-items: center;
+        p {
+            margin-bottom: 0;
+        }
+    }
+    .right-portion {
+        width: 10%;
+        i,
+        p {
+            font-size: 12px;
+            text-align: right;
+        }
+    }
+    .dp {
+        i {
+            color: $primary;
+            font-size: 20px;
+        }
+    }
+}
+.vertical-tabs-container .vertical-tab-accordion-heading:focus,
+.vertical-tabs-container .vertical-tab-accordion-heading:hover {
+    color: $primary !important;
+}
+@media screen and (max-width: 575px) {
+    .btn-b-list {
+        height: auto;
+        padding: 0;
+    }
+    .business-information {
+        ul {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow: auto;
+            button,
+            .btn {
+                white-space: nowrap;
+                margin-bottom: 20px;
+            }
+        }
+        .tab-content {
+            padding: 30px 0 !important;
+        }
+    }
+    .savd-content {
+        .listing-card {
+            padding: 10px !important;
+            .image-wrapper {
+                height: 160px !important;
+            }
+            .top-section {
+                h5 {
+                    font-size: 18px !important;
+                    line-height: 20px !important;
+                    height: 40px;
+                }
+            }
+        }
+        .listing-wrapper {
+            grid-template-columns: repeat(2, 1fr) !important;
+            width: 100% !important;
+            grid-column-gap: 15px !important;
+            grid-row-gap: 15px !important;
+        }
+    }
+    .vertical-tab-content {
+        padding: 15px !important;
+    }
+    .notification-card {
+        padding: 15px !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        border: 1px solid $bdr;
+        .main-content {
+            width: 100% !important;
+            margin: 20px 0 !important;
+            p {
+                text-align: center;
+            }
+        }
+        .right-portion {
+            width: 100% !important;
+            justify-content: center !important;
+        }
+    }
+    #tab5 {
+        background-color: rgba($color: $primary, $alpha: 0.1);
+    }
+}

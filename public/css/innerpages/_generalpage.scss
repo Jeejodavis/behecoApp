@@ -1,0 +1,527 @@
+// ----------------------------------------------------Banner------------------------------------------------//
+.general-banner {
+    width: 100vw;
+    height: 35vh;
+    margin-top: 128px;
+    padding-top: 50px;
+    background-image: url("../../images/general-banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    .overlay {
+        background-color: rgba($color: $primary, $alpha: 0.7);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .content {
+        position: relative;
+        z-index: 1;
+    }
+    .breadcrumb-wrapper {
+        align-items: center;
+        p {
+            @include text(16px, 16px, 400, $white);
+        }
+        a {
+            @include text(16px, 16px, 600, $white);
+            &:hover,
+            &:active,
+            &:focus {
+                box-shadow: none;
+                outline: 0;
+                text-decoration: none;
+                color: $secondary;
+            }
+        }
+        .breadcrumb-item.active {
+            color: $white;
+        }
+        .breadcrumb-item + .breadcrumb-item::before {
+            color: $white;
+        }
+        .breadcrumb {
+            align-items: center;
+        }
+    }
+    .content {
+        h2 {
+            @include text(48px, 48px, 700, $white);
+            margin: 50px 0;
+        }
+    }
+}
+// ----------------------------------------------------Life at Beheco------------------------------------------------//
+.life {
+    background-color: rgba($color: $primary, $alpha: 0.05);
+    .life-image-wrapper {
+        padding: 20px;
+        // box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+        max-height: 500px;
+        overflow: hidden;
+        border-radius: 20px;
+        img {
+            width: 100%;
+        }
+    }
+    .life-content {
+        padding: 0 0 0 50px;
+        h2 {
+            margin-bottom: 50px;
+        }
+        p {
+            @include text(16px, 30px, 400, $black9);
+        }
+    }
+}
+.common-section {
+    p {
+        @include text(16px, 30px, 400, $black9);
+    }
+    h2 {
+        margin-bottom: 50px;
+    }
+}
+// ----------------------------------------------------Life at Beheco------------------------------------------------//
+.about {
+    .content {
+        padding-right: 50px;
+    }
+    .image-wrapper {
+        margin-top: 100px;
+        img {
+            width: 100%;
+        }
+    }
+}
+
+// ----------------------------------------------------Drop CV------------------------------------------------//
+.drop-cv {
+    background-color: rgba($color: $tertiary, $alpha: 0.9);
+    padding: 50px 0;
+
+    .image-wrapper {
+        img {
+            width: 100%;
+        }
+    }
+    .v-center {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 100%;
+    }
+    h2 {
+        @include text(40px, 60px, 600, $white);
+        width: 100%;
+        span {
+            color: $body-color;
+            font-family: $primary-font;
+            font-weight: 700;
+        }
+    }
+    .btn-dropcv {
+        padding: 10px 30px;
+        background-color: $secondary;
+        border: 1px solid $secondary;
+        color: $white;
+        margin-top: 20px;
+        &:hover,
+        &:active,
+        &:focus {
+            box-shadow: none;
+            outline: 0;
+            text-decoration: none;
+            background-color: $primary;
+            border: 1px solid $primary;
+        }
+    }
+}
+.drop-cv-modal {
+    max-width: 800px;
+    overflow: hidden;
+    .modal-body {
+        text-align: left;
+        .common-h2 {
+            font-size: 40px !important;
+        }
+    }
+}
+.modal {
+    overflow: hidden;
+}
+.general-banner.align-v-center {
+    padding: 100px 0;
+}
+.bg-business {
+    background-image: url("../../images/bg-business.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.text-align-center {
+    text-align: center;
+}
+// ----------------------------------------------------Add New Wrapper-----------------------------------------------//
+.add-new-wrapper {
+    padding: 50px 0;
+    .accordion-body {
+        padding: 60px 40px;
+    }
+    .helper-text {
+        margin: 30px 0;
+    }
+}
+
+// -----------------------------------------------------------Help---------------------------------------------------//
+
+.terms {
+    ul {
+        list-style-image: url("../../images/svg/check_list-image.svg");
+        padding-left: 30px;
+        margin-bottom: 0;
+        li {
+            p {
+                @include text(16px, 25px, 400, $black9);
+                margin-left: 10px;
+            }
+        }
+    }
+}
+// ----------------------------------------------------Common Classes-----------------------------------------------//
+p {
+    @include text(16px, 30px, 400, $black9);
+}
+.common-h2 {
+    margin-bottom: 50px;
+}
+.video-wrapper {
+    margin: 50px 0;
+    .video-card {
+        width: 100%;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: $box-shadow;
+        margin-bottom: 30px;
+        .content {
+            border-radius: 10px;
+            overflow: hidden;
+            iframe {
+                border-radius: 10px;
+            }
+        }
+        .info {
+            padding-top: 15px;
+            .common-h4 {
+                span {
+                    color: $primary;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+.card-general {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: $box-shadow;
+    a {
+        font-weight: 600 !important;
+    }
+    p {
+        @include text(16px, 30px, 400, $black9);
+        margin-bottom: 20px;
+    }
+    .group {
+        margin-bottom: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        h6 {
+            color: $body-color;
+            margin-bottom: 5px;
+        }
+        a {
+            @include text(16px, 30px, 400, $primary);
+            &:hover,
+            &:active,
+            &:focus {
+                box-shadow: none;
+                outline: 0;
+                text-decoration: none;
+                color: $secondary;
+            }
+        }
+    }
+}
+.spl-pad {
+    margin: 0 0 0 50px;
+}
+.pos-sticky {
+    position: sticky;
+    top: 200px;
+}
+.help {
+    padding-bottom: 70px !important;
+}
+.video-wrapper {
+    margin-bottom: 20px;
+}
+// -------------------------------------------------------------------Toggle Buttons--------------------------------------------------------------------//
+.btn-check:active + .btn-outline-primary:focus,
+.btn-check:checked + .btn-outline-primary:focus,
+.btn-outline-primary.active:focus,
+.btn-outline-primary.dropdown-toggle.show:focus,
+.btn-outline-primary:active:focus {
+    box-shadow: none !important;
+    background-color: $primary;
+}
+.btn-check:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+    box-shadow: none !important;
+    background-color: $primary;
+    border-color: $primary;
+}
+.btn-check:focus + .btn-outline-primary,
+.btn-outline-primary:focus {
+    box-shadow: none !important;
+}
+// ------------------------------------------------------------------Breadcrumb--------------------------------------------------------------------//
+.breadcrumb-item + .breadcrumb-item::before {
+    color: $primary;
+}
+// ------------------------------------------------------------------Collapse---------------------------------------------------------------------//
+
+.card-body {
+    padding: 0;
+    border: none;
+    background-color: $trans;
+}
+
+.collapse.show {
+    margin-bottom: 10px;
+}
+// ------------------------------------------------------------------Progress Bar-----------------------------------------------------------------//
+.progress-bar {
+    height: 10px;
+    border-radius: $b-rds;
+}
+.progress {
+    margin-bottom: 10px;
+    height: 10px;
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}
+// --------------------------------------------------------------------Nav Tabs-----------------------------------------------------------------//
+
+.nav-tabs {
+    border: none !important;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    border-color: $trans !important;
+}
+.nav-tabs {
+    .nav-link:hover::after {
+        display: none;
+    }
+    .nav-link {
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        color: $primary;
+    }
+}
+.tab-content {
+    border-top-left-radius: 0 !important;
+    border-radius: $b-rds;
+    margin-top: -1px;
+}
+// --------------------------------------------------------------------Location Marker-----------------------------------------------------------------//
+.location-wrapper {
+    border-radius: $b-rds-md;
+    box-shadow: $box-shadow;
+    padding: 20px;
+    overflow: hidden;
+    iframe {
+        border-radius: 10px;
+    }
+}
+.keyword-wrapper {
+    .search-bar {
+        .btn-search {
+            border-top-right-radius: $b-rds;
+            border-bottom-right-radius: $b-rds;
+            padding: 0 20px;
+        }
+        span {
+            margin-left: 10px;
+        }
+    }
+    .keywords {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .keyword {
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .general-banner {
+        margin-top: 74px;
+        h2 {
+            font-size: 32px !important;
+        }
+    }
+    .common-h2 {
+        margin-bottom: 20px !important;
+    }
+    section {
+        padding: 50px 0 !important;
+        p {
+            font-size: $mob-p !important;
+        }
+    }
+    .common-section {
+        .content {
+            padding: 0 !important;
+        }
+    }
+    .life {
+        p:last-child {
+            margin-bottom: 0 !important;
+        }
+        .life-content {
+            padding: 0 !important;
+        }
+        .life-image-wrapper {
+            padding: 0 !important;
+            img {
+                display: none;
+            }
+        }
+    }
+    .open-positions {
+        padding-bottom: 20px !important;
+    }
+    .accordion-section {
+        margin-top: 0 !important;
+        .accordion {
+            margin-bottom: 30px;
+        }
+        .accordion-button {
+            font-size: 16px !important;
+        }
+    }
+    .drop-cv {
+        h2 {
+            font-size: 24px !important;
+            line-height: 40px !important;
+        }
+        .image-wrapper {
+            margin-top: 30px !important;
+            img {
+                width: 100% !important;
+            }
+        }
+    }
+    .video-card {
+        margin-bottom: 30px !important;
+    }
+    .help {
+        padding-bottom: 0 !important;
+    }
+    .video-wrapper {
+        margin-bottom: 20px;
+    }
+
+    .card-general {
+        margin-left: 0 !important;
+    }
+    .add-new-wrapper {
+        .accordion-body {
+            padding: 30px 20px !important;
+        }
+        .accordion {
+            margin-bottom: 0 !important;
+        }
+    }
+    #upload-cover {
+        width: 100% !important;
+        .stage {
+            width: 100% !important;
+            height: 120px !important;
+        }
+    }
+    .cover-image-wrapper #img-crop-cover #upload-cover label#filedrag-cover {
+        background-size: 10% auto !important;
+    }
+    .location-wrapper {
+        padding: 10px !important;
+    }
+    .contact-card {
+        margin-top: 30px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .video-card {
+        margin-bottom: 30px !important;
+    }
+    .help {
+        padding-bottom: 0 !important;
+    }
+    .video-wrapper {
+        margin-bottom: 20px;
+    }
+    .common-h2 {
+        margin-bottom: 20px !important;
+    }
+    .general-banner .content h2 {
+        font-size: 48px !important;
+    }
+    .life {
+        p:last-child {
+            margin-bottom: 0 !important;
+        }
+        .life-content {
+            padding: 0 !important;
+        }
+        .life-image-wrapper {
+            padding: 0 !important;
+            img {
+                display: none;
+            }
+        }
+    }
+    .accordion-section {
+        margin-top: 0 !important;
+        .accordion {
+            margin-bottom: 30px;
+        }
+        .accordion-button {
+            font-size: 16px !important;
+        }
+    }
+    .drop-cv {
+        h2 {
+            font-size: 24px !important;
+            line-height: 40px !important;
+        }
+        .image-wrapper {
+            margin-top: 30px !important;
+        }
+    }
+
+    .card-general {
+        margin-left: 0 !important;
+    }
+}

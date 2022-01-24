@@ -1,0 +1,833 @@
+// -----------------------------------------------------------------Navbar-------------------------------------------------------------
+.nb {
+    background: $white !important;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    flex-wrap: wrap;
+    .navbar-brand {
+        img {
+            width: 75%;
+        }
+    }
+    .signin-box {
+        .dropdown-menu.show {
+            border-radius: $b-rds;
+            a,
+            span {
+                font-size: 14px !important;
+            }
+        }
+    }
+    .content-count {
+        display: flex;
+        align-items: center;
+        .badge {
+            margin-left: 5px;
+            margin-bottom: 0;
+        }
+    }
+    .dropdown-toggle {
+        &::after {
+            display: none !important;
+        }
+    }
+    .dropdown {
+        i {
+            font-size: 12px;
+            margin-left: 5px;
+            color: $primary;
+            transition: all 0.2s ease-out;
+        }
+        &:hover {
+            i {
+                transform: rotate(180deg);
+                transition: all 0.2s ease-out;
+            }
+        }
+    }
+    a {
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+            transition: all 0.5s ease-out;
+            outline: 0;
+            color: $primary !important;
+        }
+    }
+    .navbar-toggler-icon {
+        img {
+            width: 35px !important;
+        }
+    }
+    .top-menu {
+        width: 100vw;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+        padding: 10px 0;
+    }
+    .left-portion {
+        display: flex;
+        .phone,
+        .email {
+            margin-right: 30px;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            a {
+                margin-left: 10px;
+                @include text(14px, 20px, 400, $body-color);
+            }
+        }
+    }
+    .right-portion {
+        display: flex;
+        justify-content: flex-end;
+        float: right;
+        .common-links {
+            display: flex;
+            a {
+                @include text(14px, 20px, 400, $body-color);
+            }
+            .separator {
+                width: 1px;
+                height: 14px;
+                background-color: $body-color;
+                margin: 0px 25px;
+            }
+        }
+        .social-links {
+            display: flex;
+            a {
+                margin-right: 10px;
+                &:last-child {
+                    margin: 0;
+                }
+                &:hover,
+                &:active,
+                &:focus {
+                    text-decoration: none;
+                    transition: all 0.5s ease-out;
+                    outline: 0;
+                    color: $primary;
+                    background-color: $secondary;
+                }
+            }
+        }
+    }
+    .dropdown-item {
+        padding: 7px 15px !important;
+    }
+    .icon {
+        @include circle(20px, $primary);
+        i {
+            color: $white;
+            font-size: 10px;
+        }
+    }
+    .navbar-brand {
+        padding: 10px 0;
+    }
+    .nav-link {
+        margin: 0 15px;
+        color: $body-color !important;
+        font-weight: 500;
+    }
+    .btn-black {
+        img {
+            margin-right: 10px;
+        }
+    }
+    .btn-user {
+        background-color: transparent;
+        border-color: transparent;
+        margin-right: 40px;
+        display: flex;
+        align-items: center;
+        &::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23337AB7' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        }
+        &:hover,
+        &:active,
+        &:focus {
+            box-shadow: none;
+            outline: 0;
+        }
+        .img-wrapper {
+            @include circle-image(41px);
+            margin-right: 10px;
+        }
+        img {
+            height: 100%;
+        }
+        .badge {
+            margin-bottom: 0;
+            margin-left: 5px;
+        }
+        span {
+            font-weight: 500 !important;
+        }
+    }
+    .d-flex {
+        align-items: center;
+    }
+    .signin-box {
+        img {
+            margin-right: 10px;
+        }
+        span {
+            font-size: $p;
+        }
+    }
+}
+
+// -----------------------------------------------------------------Banner-------------------------------------------------------------
+.banner {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 100px;
+    background: $white3;
+    background-repeat: no-repeat;
+    position: relative;
+    background: url("../images/banner.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include flex-hv-cntr;
+    .search-bar-container {
+        padding: 50px 50px 20px 50px;
+        background-color: $white;
+        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        width: 50%;
+        .content {
+            h2 {
+                @include text(54px, 54px, 400, $body-color);
+            }
+            h1 {
+                @include text(80px, 80px, 400, $body-color);
+                margin-bottom: 20px;
+                span {
+                    color: $secondary;
+                    font-family: $primary-font;
+                }
+            }
+            p {
+                opacity: 0.5;
+                margin: 30px 0;
+                color: $black6;
+            }
+        }
+        .search-bar-section {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            .btn {
+                height: 50px;
+                padding: 0px 23px;
+                border-radius: 0;
+                border-color: $primary;
+            }
+            .form-control {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            .select2 {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}
+section {
+    padding: 100px 0;
+}
+h2 {
+    @include text(47px, 47px, 500, $body-color);
+}
+// -----------------------------------------------------------------Categories-------------------------------------------------------------
+.categories {
+    h2 {
+        text-align: center;
+        font-weight: 600 !important;
+        span {
+            color: $primary;
+            font-weight: 600 !important;
+        }
+    }
+    .category-wrapper {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .category-row {
+            display: flex;
+        }
+    }
+    .category-row {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 80%;
+    }
+
+    .category {
+        padding: 40px;
+        border-radius: 20px;
+
+        .icon {
+            @include circle(100px, rgba($color: $primary, $alpha: 0.1));
+        }
+        .heading {
+            text-align: center;
+            margin-top: 20px;
+            color: $body-color;
+            p {
+                margin: 0;
+            }
+        }
+        &:hover {
+            box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            p {
+                color: $primary;
+                font-weight: 600;
+            }
+        }
+    }
+}
+// -----------------------------------------------------------------Featured-------------------------------------------------------------
+.featured {
+    background-color: rgba($color: $secondary, $alpha: 0.04);
+}
+// -----------------------------------------------------------------Near You-------------------------------------------------------------
+.slider-wrapper {
+    .image-wrapper {
+        border-radius: 10px;
+        overflow: hidden;
+        height: 288px;
+        img {
+            height: 100%;
+            transition: 0.2s all ease-out;
+        }
+    }
+}
+// -----------------------------------------------------------------Counter Statistics-------------------------------------------------------------
+.bg-pad {
+    width: 100%;
+    height: 50px;
+    background-color: rgba($color: $primary, $alpha: 0.04);
+}
+.counter {
+    background-color: rgba($color: $primary, $alpha: 0.04);
+    background-image: url("../images/svg/counter-banner.svg");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: center;
+    background-size: contain;
+    .text-wrapper {
+        h4 {
+            @include text(50px, 60px, 700, $primary);
+        }
+        p {
+            @include text(30px, 30px, 400, $body-color);
+            margin: 20px 0;
+        }
+    }
+}
+// -----------------------------------------------------------------Full Screen Ad-------------------------------------------------------------
+.full-screen-ad {
+    padding: 0 !important;
+    height: 400px;
+}
+// ------------------------------------------------------------------Top Picks-----------------------------------------------------------------
+.top-picks {
+    .top-pick-card {
+        border-radius: 20px;
+        height: 440px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        -khtml-border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 30px;
+        .card-description {
+            padding: 30px;
+            display: flex;
+            width: 100%;
+            background: rgba($color: $black, $alpha: 0.4);
+            .text-portion {
+                color: $white;
+                width: 70%;
+                z-index: 111;
+                position: relative;
+                p {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    color: $white;
+                }
+            }
+            .btn-wrapper {
+                width: 30%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }
+    }
+    svg {
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+}
+// ------------------------------------------------------------------Freelancers-----------------------------------------------------------------
+.freelancers {
+    .hs__item {
+        flex-basis: inherit;
+    }
+    .hs__item:first-child {
+        margin-left: 10px !important;
+    }
+    .content-box {
+        width: 314px;
+        .cover-image {
+            height: 136px;
+            overflow: hidden;
+            border-radius: 10px;
+
+            img {
+                width: 100%;
+            }
+        }
+        .profile-image {
+            display: flex;
+            justify-content: center;
+            margin-top: -70px;
+            z-index: 11;
+            position: relative;
+            img {
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 3px solid $white;
+            }
+        }
+    }
+    .save-btn {
+        @include circle(30px, $primary);
+        color: $white;
+        font-size: 16px;
+        position: absolute;
+        bottom: 45px;
+        right: 20px;
+        z-index: 111;
+    }
+    .freelancer-info {
+        .info-content {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            p,
+            h5 {
+                text-align: center;
+                color: $body-color;
+            }
+            p {
+                color: rgba(17, 17, 17, 0.5);
+                margin: 10px 0;
+            }
+            .overall-rating {
+                justify-content: center;
+                margin: 20px 0;
+                p {
+                    margin: 0 0 0 10px;
+                    @include text(18px, 18px, 400, rgba(17, 17, 17, 0.5));
+                }
+                i {
+                    color: $primary;
+                }
+            }
+        }
+    }
+}
+// ------------------------------------------------------------------Upcoming Events-----------------------------------------------------------------
+// .upcoming-events{
+
+// }
+.event-container {
+    margin-top: 50px;
+}
+.event-card {
+    padding: 20px;
+    background-color: $white9;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 30px;
+    flex-wrap: nowrap;
+    box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.1);
+    transition: 0.2s all ease-out;
+    height: 253px;
+    &:hover {
+        background-color: $white;
+        overflow: hidden;
+        transition: 0.2s all ease-out;
+        .img-section {
+            img {
+                width: 110%;
+                transition: 0.2s all ease-out;
+                overflow: hidden;
+            }
+        }
+    }
+    .img-section {
+        border-radius: 10px;
+        overflow: hidden;
+        width: 30%;
+        display: block !important;
+        transition: 0.2s all ease-out;
+        img {
+            width: 100%;
+        }
+    }
+
+    .text-section {
+        width: 70%;
+        padding-left: 20px;
+        h5 {
+            @include text(25px, 30px, 600, $body-color);
+        }
+        p {
+            @include text(16px, 30px, 400, $black6);
+        }
+        .icon-text-container {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            margin-bottom: 10px;
+            p {
+                margin-left: 10px;
+                margin-bottom: 0;
+            }
+        }
+        .description-content {
+            height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+// ------------------------------------------------------------------Coming Soon-----------------------------------------------------------------
+.coming-soon {
+    padding: 0 !important;
+}
+.coming-soon-card {
+    background-color: rgba($color: $color3, $alpha: 0.5);
+    background-image: url("../images/svg/coming-soon.svg");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: bottom;
+    width: 100%;
+    border-radius: 20px;
+    padding: 50px 50px 0 50px;
+    .content {
+        padding-bottom: 50px;
+    }
+    h3 {
+        @include text(62px, 62px, 700, $primary);
+        font-family: $primary-font;
+        margin-bottom: 50px;
+    }
+    p {
+        @include text(18px, 18px, 400, $black6);
+        span {
+            @include text(22px, 22px, 400, $primary);
+        }
+    }
+    h6 {
+        @include text(22px, 22px, 400, $secondary);
+    }
+    .dload-app {
+        @include text(18px, 18px, 400, $black1);
+        margin: 50px 0 20px 0;
+        span {
+            @include text(18px, 18px, 400, $primary);
+        }
+    }
+}
+// ------------------------------------------------------------------FAQ-----------------------------------------------------------------
+.faq {
+    background-color: rgba($color: $tertiary, $alpha: 0.2);
+    width: 100%;
+    border-radius: 20px;
+    padding: 50px;
+    height: 100%;
+    .content {
+        position: relative;
+        height: 100%;
+        background-image: url("../images/svg/qa.svg");
+        background-repeat: no-repeat;
+        background-position-x: right;
+        background-position-y: bottom;
+        h5 {
+            @include text(36px, 36px, 600, $body-color);
+            font-family: $primary-font;
+        }
+        p {
+            @include text(18px, 36px, 400, $black6);
+            margin: 20px 0 40px 0;
+        }
+    }
+}
+// ------------------------------------------------------------------Testimonials-----------------------------------------------------------------
+.testimonials {
+    margin-top: 100px;
+    background-color: rgba($color: $primary, $alpha: 0.02);
+    .testimonial-card {
+        padding: 40px;
+        background: $white;
+        border-radius: 20px;
+        box-shadow: $box-shadow;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 500px;
+        .quote-icon {
+            position: absolute;
+            top: -27px;
+            left: 10px;
+        }
+        .auther-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid $tertiary;
+            img {
+                width: 100%;
+            }
+        }
+        .txt-section {
+            .quote {
+                display: block;
+                text-align: center;
+                width: 100%;
+                white-space: normal;
+                @include text(16px, 28px, 400, $black1);
+            }
+            .right-align {
+                flex-wrap: wrap;
+                h5 {
+                    @include text(16px, 16px, 600, $primary);
+                    text-align: center;
+                    width: 100%;
+                }
+                p {
+                    @include text(14px, 16px, 400, $black6);
+                    text-align: center;
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .hs {
+        padding: 40px 0;
+    }
+    .hs__item:first-child {
+        margin-left: 5px;
+    }
+    .hs__item {
+        flex-basis: calc(100% / 3.5 - (10px * 2) - (20px / 4));
+    }
+}
+// ------------------------------------------------------------------Contact Form-----------------------------------------------------------------
+.contact-form {
+    .form-section {
+        padding-top: 50px;
+        margin-right: 40px;
+    }
+}
+// ------------------------------------------------------------------Subscribe Newsletter---------------------------------------------------------
+.subscribe {
+    background-color: rgba($color: $secondary, $alpha: 0.1);
+    padding: 66px 0 0 0;
+    .img-container {
+        img {
+            margin-top: -113px;
+            width: 50%;
+        }
+    }
+    h5 {
+        @include text(36px, 36px, 600, $body-color);
+        font-family: $primary-font;
+        margin-bottom: 30px;
+        span {
+            @include text(36px, 36px, 600, $primary);
+        }
+    }
+    .newletter-input {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        padding-bottom: 60px;
+        input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            height: 70px;
+            padding-left: 20px;
+            font-size: 20px;
+            border-color: transparent;
+            &:focus {
+                border: 2px solid $primary;
+            }
+        }
+        .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding: 0 30px;
+            height: 70px;
+            font-size: 20px;
+            span {
+                font-weight: 600;
+            }
+        }
+    }
+}
+// ------------------------------------------------------------------Popular Content---------------------------------------------------------
+.popular-content {
+    background-color: rgba($color: $primary, $alpha: 0.1);
+    h5 {
+        @include text(25px, 25px, 600, $primary);
+        margin-bottom: 30px;
+    }
+    p {
+        @include text(16px, 32px, 400, $black6);
+        margin-bottom: 50px;
+    }
+}
+// ------------------------------------------------------------------Footer---------------------------------------------------------
+.footer {
+    padding: 100px 0 0 0;
+    background-color: $primary;
+    color: $white;
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    a {
+        @include text(16px, 40px, 400, $white);
+        &:hover,
+        &:active,
+        &:focus {
+            box-shadow: none;
+            outline: 0;
+            text-decoration: none;
+        }
+    }
+    .link-animate {
+        a {
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+            &:after {
+                background: none repeat scroll 0 0 transparent;
+                bottom: 0;
+                content: "";
+                display: block;
+                height: 2px;
+                left: 0%;
+                position: absolute;
+                background: $white;
+                transition: width 0.3s ease 0s, left 0.3s ease 0s;
+                width: 0;
+            }
+            &:hover:after {
+                width: 100%;
+                left: 0;
+            }
+        }
+    }
+
+    .contact-details {
+        a {
+            display: inline-block;
+            line-height: 28px;
+        }
+    }
+    p {
+        color: $white;
+    }
+    .copyright-section {
+        padding: 30px 0;
+        margin-top: 50px;
+        border-top: 1px solid $bdr;
+        p {
+            margin: 0;
+        }
+        .social-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .icon {
+                @include circle(30px, $secondary);
+                color: $white;
+                margin-right: 15px;
+                &:last-child {
+                    margin-right: 0;
+                }
+                &:hover,
+                &:active,
+                &:focus {
+                    background-color: $tertiary;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+#advertise {
+    .modal-dialog {
+        max-width: 700px;
+        .description-text {
+            margin-top: -20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    }
+}
+.btn-close {
+    @include circle(25px, $secondary);
+    min-width: 25px;
+    padding: 3px;
+    color: $white;
+    opacity: 1 !important;
+    background-color: $tertiary !important;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+        center/12px auto no-repeat;
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: $secondary !important;
+    }
+}
+.slider-wrapper .content-box .txt-section .btn-warpper {
+    p:last-child {
+        margin: 0;
+    }
+}
+
+.text-primary {
+    color: $primary !important;
+}
