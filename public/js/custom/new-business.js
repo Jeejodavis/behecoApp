@@ -196,46 +196,50 @@ $(document).on('click', '#remove_sm_url', function() {
 
 $('#category').change(function() {
 	var category = $(this).val();
-	$.ajax({
-        url: base_url+"/subcategory/"+category,
-        type: 'GET',
-        async: 'FALSE',
-        dataType: 'JSON',
-        success: function (data) {
-            var aData = data.data;
-            if (aData.length > 0) {
-            	var optRow = '<option value="0" selected>Choose Subcategory</option>';
-                $(aData).each(function(i, item) {
-                    optRow += '<option value="'+ item.id +'">'+ item.subcategory_name +'</option>';
-                });
-                $('#subcategory').html(optRow).trigger('change');
-            }
-        },
-        error: function (xhr) {
-            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-        },
-    });	
+	if (category != 0) {
+		$.ajax({
+	        url: base_url+"/subcategory/"+category,
+	        type: 'GET',
+	        async: 'FALSE',
+	        dataType: 'JSON',
+	        success: function (data) {
+	            var aData = data.data;
+	            if (aData.length > 0) {
+	            	var optRow = '<option value="0" selected>Choose Subcategory</option>';
+	                $(aData).each(function(i, item) {
+	                    optRow += '<option value="'+ item.id +'">'+ item.subcategory_name +'</option>';
+	                });
+	                $('#subcategory').html(optRow).trigger('change');
+	            }
+	        },
+	        error: function (xhr) {
+	            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+	        },
+	    });	
+	}
 });
 
 $('#city').change(function() {
 	var city = $(this).val();
-	$.ajax({
-        url: base_url+"/stateCountry/"+city,
-        type: 'GET',
-        async: 'FALSE',
-        dataType: 'JSON',
-        success: function (data) {
-            var stateData = data.data.state;
-            var stateRow = '<option value="'+ stateData.id +'" selected>'+ stateData.state_name +'</option>';
-            $('#state').html(stateRow).trigger('change');
-            var countryData = data.data.country;
-            var countryRow = '<option value="'+ countryData.id +'" selected>'+ countryData.country_name +'</option>';
-            $('#country').html(countryRow).trigger('change');
-        },
-        error: function (xhr) {
-            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-        },
-    });	
+	if (city != 0) {
+		$.ajax({
+	        url: base_url+"/stateCountry/"+city,
+	        type: 'GET',
+	        async: 'FALSE',
+	        dataType: 'JSON',
+	        success: function (data) {
+	            var stateData = data.data.state;
+	            var stateRow = '<option value="'+ stateData.id +'" selected>'+ stateData.state_name +'</option>';
+	            $('#state').html(stateRow).trigger('change');
+	            var countryData = data.data.country;
+	            var countryRow = '<option value="'+ countryData.id +'" selected>'+ countryData.country_name +'</option>';
+	            $('#country').html(countryRow).trigger('change');
+	        },
+	        error: function (xhr) {
+	            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+	        },
+	    });	
+	}
 });
 
 $('#basic_next').click(function() {
@@ -301,8 +305,9 @@ $('#basic_next').click(function() {
             {
             	$('#business_id').val(data.id);
             	$('#businessId').val(data.id);
-                $('#photoTab').removeAttr('disabled').trigger('click');
+            	$('#basicTab').trigger('click');
                 setTimeout(function() {
+                	$('#photoTab').removeAttr('disabled').trigger('click');
 				    $('html, body').animate({scrollTop:$('#collapseTwo').offset().top}, 'slow');
 				}, 300);
                 
@@ -397,6 +402,20 @@ function validateBasicDetails(businessName, category, subcategory, building, str
 }
 
 $('#addPhotos').click(function() {
+	var coverImg = $('#coverImg').attr('src');
+	if (coverImg == '') {
+		$('#errorText').text('Please add a cover picture');
+        $('#Error').modal('show');
+        return false;
+	}
+	var profileImg = $('#profileImg').attr('src');
+	if (profileImg == '') {
+		$('#errorText').text('Please add a profile picture');
+        $('#Error').modal('show');
+        return false;
+	}
+	$('textarea[name="coverImgData"]').val(coverImg);
+	$('textarea[name="profileImgData"]').val(profileImg);
 	var formData = new FormData($('#image_form')[0]);
     $.ajax({
         url: base_url+'/addBusinessPhotos',
@@ -410,8 +429,9 @@ $('#addPhotos').click(function() {
             var datas = JSON.parse(data);
             if (datas.status == 'success')
             {
-                $('#locationTab').removeAttr('disabled').trigger('click');
+            	$('#photoTab').trigger('click');
                 setTimeout(function() {
+                	$('#locationTab').removeAttr('disabled').trigger('click');
 				    $('html, body').animate({scrollTop:$('#collapseThree').offset().top}, 'slow');
 				}, 300);
             }
@@ -441,8 +461,9 @@ $('#locationAdd').click(function() {
             // var datas = JSON.parse(data);
             if (data.status == 'success')
             {
-                $('#keywordTab').removeAttr('disabled').trigger('click');
+            	$('#locationTab').trigger('click');
                 setTimeout(function() {
+                	$('#keywordTab').removeAttr('disabled').trigger('click');
 				    $('html, body').animate({scrollTop:$('#collapseFour').offset().top}, 'slow');
 				}, 300);
                 
@@ -479,4 +500,82 @@ $('#keywordSubmit').click(function() {
         }
 
     });
+});
+
+$('#basicReset').click(function() {
+	$('#business_name').val('');
+	$('#category').val(0).trigger('change');
+	var optRow = '<option value="0" selected>Choose Subcategory</option>';
+    $('#subcategory').html(optRow).trigger('change');
+	$('#year_of_establish').val('');
+	$('#name_of_founder').val('');
+	$('#building').val('');
+	$('#street').val('');
+	$('#area').val('');
+	$('#city').val(0).trigger('change');
+	$('#landmark').val('');
+	$('#pincode').val('');
+	$('#country').html('').trigger('change');
+	$('#state').html('').trigger('change');
+	$('.off_num_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#off_num_label_'+count).remove();
+	});
+	$('.tollfree_num_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#tollfree_num_label_'+count).remove();
+	});
+	$('.wapp_num_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#wapp_num_label_'+count).remove();
+	});
+	$('.email_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#email_label_'+count).remove();
+	});
+	$('.mob_num_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#mob_num_label_'+count).remove();
+	});
+	$('.website_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#website_label_'+count).remove();
+	});
+	$('.sm_url_btn').each(function() {
+		var count = $(this).attr('count');
+		$(this).parent().remove();
+		$('#sm_div_'+count).remove();
+		$('#sm_url_div_'+count).remove();
+	});
+	$('html, body').animate({scrollTop:$('#collapseOne').offset().top}, 'slow');
+});
+
+$('#photoPrev').click(function() {
+	$('#photoTab').trigger('click');
+	setTimeout(function() {
+    	$('#basicTab').trigger('click');
+	    $('html, body').animate({scrollTop:$('#collapseOne').offset().top});
+	}, 300);
+});
+
+$('#locationPrev').click(function() {
+	$('#locationTab').trigger('click');
+	setTimeout(function() {
+    	$('#photoTab').trigger('click');
+	    $('html, body').animate({scrollTop:$('#collapseTwo').offset().top});
+	}, 300);
+});
+
+$('#keywordPrev').click(function() {
+	$('#keywordTab').trigger('click');
+	setTimeout(function() {
+    	$('#locationTab').trigger('click');
+	    $('html, body').animate({scrollTop:$('#collapseThree').offset().top});
+	}, 300);
 });
