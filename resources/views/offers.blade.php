@@ -256,7 +256,7 @@
                                                         </div>
                                                         <div class="overall-rating">
                                                             <img src="{{ asset('images/svg/offer.svg') }}" alt="offer-icon">
-                                                            <p><b>60% OFF</b></p>
+                                                            <p><b>{{ $offer->offer_amount }}% OFF</b></p>
                                                         </div>
                                                     </div>
                                                 </div>

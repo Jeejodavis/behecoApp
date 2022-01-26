@@ -57,18 +57,12 @@
                         @endif
                         <div class="social-media">
                             <div class="social-links">
-                                <a href="" class="icon fb">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="" class="icon tw">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="" class="icon insta">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="" class="icon tw">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
+                                @foreach ($social_medias as $socialMedia)
+                                    <a href="<?= $socialMedia['url'] ?>" target="_blank" class="icon">
+                                        <?= $socialMedia['social_media_data']['sm_icon'] ?>
+                                        <!-- <i class="fab fa-facebook-f"></i> -->
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                         <a href="#rateMe" class="rate-me">
@@ -684,7 +678,12 @@
                                     <div class="flex-container top-section">
                                         <h5>{{ $similar['business_name'] }}</h5>
                                         <div class="right-align">
-                                            <a href=""><i class="fas fa-heart"></i></a>
+                                            @auth
+                                                <a type="button" class="savedItem" businessId="{{ $similar['id'] }}" saveType="add"><i class="fas fa-heart"></i></a>
+                                            @endauth
+                                            @guest
+                                                <a type="button" data-bs-toggle="modal" data-bs-target="#SignIn"><i class="fas fa-heart"></i></a>
+                                            @endguest
                                         </div>
 
                                     </div>
@@ -692,18 +691,20 @@
                                     <p>{{ $similar['city'] . ', ' . $similar['state'] }}</p>
                                     <div class="flex-container bottom-section">
                                         <div class="btn-warpper">
-                                            <a href="detail/{{ $similar['id'] }}" type="button" class="btn btn-view-more">View More</a>
+                                            <a href="{{ url('/detail/'. base64_encode($similar['id'])) }}" type="button" class="btn btn-view-more">View More</a>
                                         </div>
-                                        <div class="overall-rating">
-                                            @if ($similar['rating'] == 0)
-                                                <i class="far fa-star"></i>
-                                            @elseif ($similar['rating'] > 4.6)
-                                                <i class="fas fa-star"></i>
-                                            @else
-                                                <i class="fas fa-star-half-alt"></i>
-                                            @endif
-                                            <p>{{ $similar['rating'] }}</p>
-                                        </div>
+                                        @if (!empty($similar['rating'] ))
+                                            <div class="overall-rating">
+                                                @if ($similar['rating'] == 0)
+                                                    <i class="far fa-star"></i>
+                                                @elseif ($similar['rating'] > 4.6)
+                                                    <i class="fas fa-star"></i>
+                                                @else
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                @endif
+                                                <p>{{ $similar['rating'] }}</p>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

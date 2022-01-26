@@ -218,7 +218,7 @@ $('.addHeadlines').click(function() {
     var businessId = $(this).attr('businessId');
     var count = $('.headline_' + businessId).length;
     count = parseInt(count) + 1;
-    var text = '<div class="col-xl-6"><div class="mb-3">';
+    var text = '<div class="col-xl-6 headlines_'+ businessId +'"><div class="mb-3">';
     text += '<label class="form-label">Headline ' + count + '</label>';
     text += '<select class="form-select select2 js headline_' + businessId + '" id="headline_select_' + businessId + '_' +count+'" aria-label="Default select example" name="headline_' + businessId + '[]">';
     text += '<option value="0" selected>Select headline</option>';
@@ -546,7 +546,8 @@ $('.addOffer').click(function() {
     var offerImage = $('#imageInput_'+business_id).val();
     var offerHeading = $('#offer_heading_'+business_id).val();
     var offerLocation = $('#offer_location_'+business_id).val();
-    var valResult = validateOffer(business_id, offerImage, offerHeading, offerLocation);
+    var offerAmount = $('#offer_amount_'+business_id).val();
+    var valResult = validateOffer(business_id, offerImage, offerHeading, offerLocation, offerAmount);
     if (valResult == 1) {
         $('html, body').animate({scrollTop:$('#businessInform_'+business_id).offset().top}, 'slow');
         return false;
@@ -576,7 +577,7 @@ $('.addOffer').click(function() {
     });
 });
 
-function validateOffer(business_id, offerImage, offerHeading, offerLocation)
+function validateOffer(business_id, offerImage, offerHeading, offerLocation, offerAmount)
 {
     var valFail = 0;
 
@@ -607,53 +608,143 @@ function validateOffer(business_id, offerImage, offerHeading, offerLocation)
         $('#offer_location_'+ business_id).removeClass('border-danger');
     }
 
+    if (offerAmount == '') {
+        $('#amount_error_'+ business_id).removeClass('d-none');
+        $('#offer_amount_'+ business_id).addClass('border-danger');
+        valFail = 1;
+    } else {
+        $('#amount_error_'+ business_id).addClass('d-none');
+        $('#offer_amount_'+ business_id).removeClass('border-danger');
+    }
+
     return valFail;
 }
 
-$("img[name='profPhoto']").on('load', function () {
-    var imageBase = ($(this).attr('src'));
-    $.ajax({
-        url: base_url+'/uploadUserProfilePhoto',
-        type: 'POST',
-        data: {
-            'imageBase': imageBase
-        },
-        dataType: 'JSON',
-        async: false,
-        success: function (data) {
-            // var datas = JSON.parse(data);
-            if (datas.status == 'success')
-            {
-                location.reload();
+$(window).on('load', function() {
+    $("img[name='profPhoto']").on('load', function () {
+        var imageBase = ($(this).attr('src'));
+        $.ajax({
+            url: base_url+'/uploadUserProfilePhoto',
+            type: 'POST',
+            data: {
+                'imageBase': imageBase
+            },
+            dataType: 'JSON',
+            async: false,
+            success: function (data) {
+                // var datas = JSON.parse(data);
+                if (data.status == 'success')
+                {
+                    location.reload();
+                }
+            },
+            error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
             }
-        },
-        error: function (xhr) {
-            alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-        }
 
+        });
+    });
+
+    $("img[name='coverImg']").on('load', function () {
+        var imageBase = ($(this).attr('src'));
+        $.ajax({
+            url: base_url+'/uploadUserCoverPhoto',
+            type: 'POST',
+            data: {
+                'imageBase': imageBase
+            },
+            dataType: 'JSON',
+            async: false,
+            success: function (data) {
+                // var datas = JSON.parse(data);
+                if (data.status == 'success')
+                {
+                    location.reload();
+                }
+            },
+            error: function (xhr) {
+                alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+
+        });
     });
 });
 
-$("img[name='coverImg']").on('load', function () {
-    var imageBase = ($(this).attr('src'));
-    $.ajax({
-        url: base_url+'/uploadUserCoverPhoto',
-        type: 'POST',
-        data: {
-            'imageBase': imageBase
-        },
-        dataType: 'JSON',
-        async: false,
-        success: function (data) {
-            // var datas = JSON.parse(data);
-            if (datas.status == 'success')
-            {
-                location.reload();
-            }
-        },
-        error: function (xhr) {
-            alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-        }
+$('#profileReset').click(function() {
+    $('#gender').val('');
+    $('#dob').val('');
+    $('#contact_no').val('');
+});
 
+$('.resetBasic').click(function() {
+    var businessId = $(this).attr('businessId');
+    $('#business_name_'+businessId).val('');
+    $('#category_'+businessId).val(0).trigger('change');
+    var optRow = '<option value="0" selected>Choose Subcategory</option>';
+    $('#subcategory_'+businessId).html(optRow).trigger('change');
+    $('#name_of_founder_'+businessId).val('');
+    $('#building_'+businessId).val('');
+    $('#year_of_establish_'+businessId).val('');
+    $('#street_'+businessId).val('');
+    $('#area_'+businessId).val('');
+    $('#city_'+businessId).val(0).trigger('change');
+    $('#landmark_'+businessId).val('');
+    $('#pincode_'+businessId).val('');
+    $('#country_'+businessId).html('').trigger('change');
+    $('#state_'+businessId).html('').trigger('change');
+    $('.off_num_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#off_num_label_'+businessId+'_'+count).remove();
     });
+    $('.tollfree_num_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#tollfree_num_label_'+businessId+'_'+count).remove();
+    });
+    $('.wapp_num_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#wapp_num_label_'+businessId+'_'+count).remove();
+    });
+    $('.email_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#email_label_'+businessId+'_'+count).remove();
+    });
+    $('.mob_num_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#mob_num_label_'+businessId+'_'+count).remove();
+    });
+    $('.website_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#website_label_'+businessId+'_'+count).remove();
+    });
+    $('.sm_url_btn_'+businessId).each(function() {
+        var count = $(this).attr('count');
+        $(this).parent().remove();
+        $('#sm_div_'+businessId+'_'+count).remove();
+        $('#sm_url_div_'+businessId+'_'+count).remove();
+    });
+    $("input[name='keyword_"+businessId+"']:checked").prop('checked', false);
+    $('html, body').animate({scrollTop:$('#businessInform_'+businessId).offset().top}, 'slow');
+});
+
+$('.resetPageContent').click(function() {
+    var businessId = $(this).attr('businessId');
+    $('#about_'+businessId).val('');
+    $('#timing_'+businessId).val(0).trigger('change');
+    $('#timingValue_'+businessId).val('');
+    $('.headlines_'+businessId).remove();
+    $('html, body').animate({scrollTop:$('#businessInform_'+businessId).offset().top});
+});
+
+$('.resetOffer').click(function() {
+    var businessId = $(this).attr('businessId');
+    $('#offer_heading_'+businessId).val('');
+    $('#offer_location_'+businessId).val('');
+    $('#offer_description_'+businessId).val('');
+    $('html, body').animate({scrollTop:$('#businessInform_'+businessId).offset().top});
 });

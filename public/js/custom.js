@@ -309,9 +309,13 @@ $(document).ready(function () {
 
 // ----------------------------------------------------Image Cropper-----------------------------------------------------//
 const $upload = $('#upload'),
+    $coverupload = $('#upload-cover'),
     $crop = $('#crop'),
+    $covercrop = $('#crop-cover'),
     $result = $('#result'),
+    $coverresult = $('#result-cover'),
     $croppie = $('#croppie'),
+    $covercroppie = $('#croppie-cover'),
     $download = $('download')
 
 var cr,
@@ -322,8 +326,10 @@ var cr,
 
 //支援上傳檔案判斷
 $(function () {
-    if (window.File && window.FileList && window.FileReader)
-        fileInit()
+    if (window.File && window.FileList && window.FileReader) {
+        fileInit();
+        coverfileInit();
+    }
     else
         alert('您的裝置不支援圖片上傳');
 });
@@ -387,7 +393,7 @@ function cropInit() {
         viewport: {
             width: 300,
             height: 300,
-            type: 'circle'
+            type: 'rectangle'
         },
         boundary: {
             width: img_w,
@@ -422,6 +428,7 @@ function cropCancel() {
         $upload.fadeIn(300).siblings().hide();
         fileselect.value = "";
         isCrop = 0;
+        $result.find('img').attr('src', "");
     }
 }
 
@@ -435,7 +442,7 @@ function cropResult() {
             size: { width: img_w, height: img_h },
             format: 'png',
             quality: 1,
-            circle: true
+            rectangle: true
         }).then(function (resp) {
             $crop.hide();
             $result.find('img').attr('src', resp)
@@ -444,6 +451,134 @@ function cropResult() {
         })
     }
 }
+
+
+
+
+//********* Cover photo file select/drop *********
+
+var cover_cr,
+    cover_cr_img = '',
+    cover_img_w = 870,
+    cover_img_h = 220,
+    cover_isCrop = 0;
+
+var coverfileselect = document.getElementById("fileselect-cover"),
+    coverfiledrag = document.getElementById("filedrag-cover");
+
+function coverfileInit() {
+    //file select
+    coverfileselect.addEventListener("change", CoverFileSelectHandler, false);
+    //is XHR2 avalible
+    var xhr = new XMLHttpRequest();
+    //file drop
+    if (xhr.upload) {
+        coverfiledrag.addEventListener("dragover", CoverFileDragHover, false);
+        coverfiledrag.addEventListener("dragleave", CoverFileDragHover, false);
+        coverfiledrag.addEventListener("drop", CoverFileSelectHandler, false);
+    }
+}
+
+
+//file selection
+function CoverFileSelectHandler(e) {
+    // cancel event and hover styling
+    CoverFileDragHover(e);
+    // fetch FileList object
+
+    var files = e.target.files || e.dataTransfer.files;
+    if (files[0] && files[0].type.match('image.*')) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $coverupload.hide();
+
+            if (cover_cr_img == '') {//第一次上傳
+                cover_cr_img = e.target.result
+                covercropInit();
+            }
+            else {// 綁定照片
+                cover_cr_img = e.target.result
+                coverbindCropImg();
+            }
+            $covercrop.fadeIn(300);
+        }
+        reader.readAsDataURL(files[0]);
+    }
+}
+
+// file drag hover
+function CoverFileDragHover(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    coverfiledrag.classname = (e.type == "dragover" ? "hover" : "")
+}
+
+//********* crop *********
+function covercropInit() {
+    cover_cr = $covercroppie.croppie({
+        viewport: {
+            width: 850,
+            height: 200,
+            type: 'rectangle'
+        },
+        boundary: {
+            width: cover_img_w,
+            height: cover_img_h
+        },
+        mouseWheelZoom: false,
+        enableOrientation: true
+    });
+
+    $(".cr-slider-wrap").append('<button id="cr-rotate" onClick="covercropRotate(-90);">↻ Rotate</button>')
+
+    coverbindCropImg();
+}
+
+//綁定圖片
+function coverbindCropImg() {
+    cover_cr.croppie('bind', {
+        url: cover_cr_img
+    });
+}
+
+//旋轉按鈕
+
+function covercropRotate(deg) {
+    cover_cr.croppie('rotate', parseInt(deg))
+}
+
+
+//取消裁切
+function covercropCancel() {
+    if ($coverupload.is(':hidden')) {
+        $coverupload.fadeIn(300).siblings().hide();
+        coverfileselect.value = "";
+        cover_isCrop = 0;
+        $coverresult.find('img').attr('src', "");
+    }
+}
+
+//圖片裁切
+
+function covercropResult() {
+    if (!cover_isCrop) {
+        cover_isCrop = 1;
+        cover_cr.croppie('result', {
+            type: 'canvas',
+            size: { width: cover_img_w, height: cover_img_h },
+            format: 'png',
+            quality: 1,
+            rectangle: true
+        }).then(function (resp) {
+            $covercrop.hide();
+            $coverresult.find('img').attr('src', resp)
+            $coverresult.find('a').attr('href', resp)
+            $coverresult.fadeIn(300)
+        })
+    }
+}
+
+
 
 
 // ----------------------------------------------------Image Uploader-----------------------------------------------------//
@@ -492,6 +627,7 @@ class="fa fa-times"></i></span>
         console.log(ref.imageFileArray);
     });
 }
+
 const upload = new CustomUpload('#fileImage');
 
 // ----------------------------------------------------Vertical Tab Accordion-----------------------------------------------------//
@@ -566,7 +702,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ----------------------------------------------------Image Cropper on Pop up DP-----------------------------------------------------//
 // Start upload preview image
-$(".gambar").attr("src", "https://images.unsplash.com/photo-1528892952291-009c663ce843?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=644&q=80");
+// $(".gambar").attr("src", "https://images.unsplash.com/photo-1528892952291-009c663ce843?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=644&q=80");
 var $uploadCrop,
     tempFilename,
     rawImg,
@@ -622,7 +758,7 @@ $('#cropImageBtn').on('click', function (ev) {
 // ----------------------------------------------------Image Cropper on Pop up Cover-----------------------------------------------------//
 var cover = document.querySelector('.cover-pic-image')
 // Start upload preview image
-$(".cover-pic-image").attr("src", "https://images.pexels.com/photos/443383/pexels-photo-443383.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+// $(".cover-pic-image").attr("src", "");
 var $uploadCrop1,
     tempFilename1,
     rawImg1,

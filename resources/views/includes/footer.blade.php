@@ -113,16 +113,16 @@
                 </div>
                 <div class="modal-body ">
                     <div class="icon-wrapper">
-                        <img src="assets/images/svg/x-circle.svg" alt="success">
+                        <img src="{{ asset('images/svg/x-circle.svg') }}" alt="success">
                     </div>
                     <div class="content">
                         <h2 class="error-heading">Error</h2>
-                        <p>Please check the Internet connection</p>
-                        <div class="d-grid gap-2 full-wdth-btn">
+                        <p id="errorText">Please check the Internet connection</p>
+                        <!-- <div class="d-grid gap-2 full-wdth-btn">
                             <button type="button" class="btn btn-danger-outline">Explore
                                 now</button>
                             <button type="button" class="btn btn-danger">View your profile</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

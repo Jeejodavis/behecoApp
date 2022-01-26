@@ -22,7 +22,7 @@ class UserService {
 	{
 		if (!empty(auth()->user()->id)) {
 			$masterData = $this->masterData();
-			$userData = User::active()->where('id', auth()->user()->id)->select('first_name', 'last_name', 'gender', 'dob', 'email', 'contact_no', 'profile_img', 'banner_img')->first();
+			$userData = User::active()->where('id', auth()->user()->id)->select('id', 'first_name', 'last_name', 'gender', 'dob', 'email', 'contact_no', 'profile_img', 'banner_img')->first();
 			$businesses = $this->businessDetails();
 			$savedItems = $this->savedItems();
 			$notifications = $this->notifications();
@@ -86,7 +86,21 @@ class UserService {
 
 	public function savedItems()
 	{
-		return UserSavedItems::where('user_id', auth()->user()->id)->get();
+		return UserBusiness::join('beheco_user_saved_items', 'beheco_user_saved_items.business_id', 'beheco_user_business.id')
+			->where('beheco_user_saved_items.user_id', auth()->user()->id)
+			->where('beheco_user_business.status', 'active')
+			->get()->map(function($business) {
+			return [
+				'id' => $business->business_id,
+				'business_name' => $business->business_name,
+				'category_id' => $business->category_id,
+				'category' => $business->category->category_name,
+				'rating' => $business->rating($business->business_id),
+				'city' => $business->city->city_name,
+				'state' => $business->stateData->state_name,
+				'profile_photo' => $business->profile_photo
+			];
+			});
 	}
 
 	public function notifications()

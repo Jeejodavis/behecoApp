@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\BehecoTableNamingConvention;
 use App\Traits\Models\ScopeActiveTrait;
 
+use App\Models\SocialMedia;
+
 class BusinessSocialMedia extends Model
 {
     use HasFactory, BehecoTableNamingConvention;
@@ -19,4 +21,9 @@ class BusinessSocialMedia extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function socialMediaData()
+    {
+        return $this->belongsTo(SocialMedia::class, 'social_media');
+    }
 }

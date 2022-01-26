@@ -16,7 +16,7 @@ class CreateSocialMediaTable extends Migration
         Schema::create('beheco_social_media', function (Blueprint $table) {
             $table->id();
             $table->string('sm_name');
-            $table->string('sm_icon');
+            $table->text('sm_icon');
             $table->enum('status', ['active', 'inactive', 'deleted'])->default('active');
         });
     }
