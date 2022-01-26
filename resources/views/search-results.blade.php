@@ -225,7 +225,7 @@
                                 <div class="listing-wrapper" id="businessList">
                                     @if (count($businesses) > 0)
                                         @foreach ($businesses as $business)
-                                        <a href="detail/{{ base64_encode($business['id']) }}" class="listing-card">
+                                        <a href="{{ url('/detail/'.  base64_encode($business['id'])) }}" class="listing-card">
                                             <div class="content">
                                                 <div class="image-wrapper">
                                                     @if (!empty($business['profile_photo']))

@@ -151,7 +151,7 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="btn-wrapper mgn-top-20">
-                                            <button type="button" class="btn btn-submit-outline">Reset</button>
+                                            <button type="button" class="btn btn-submit-outline" id="profileReset">Reset</button>
                                             <button type="button" class="btn btn-submit-primary" id="profileUpdate">Update</button>
                                         </div>
                                     </div>
@@ -506,8 +506,8 @@
                                                                             <input type="number" class="form-control wapp_num_{{ $business['id'] }}"
                                                                                 placeholder="Enter WhatsApp Number" 
                                                                                 id="whatsapp_num_{{ $business['id'] }}" name="whatsapp_num_{{ $business['id'] }}[]">
-                                                                            <button class="btn btn-plus add_wapp_num" id="add_wapp_num" type="button"
-                                                                                id="add_wapp_num"><i
+                                                                            <button class="btn btn-plus add_wapp_num" businessId="{{ $business['id'] }}" id="add_wapp_num" type="button"
+                                                                                ><i
                                                                                     class="fas fa-plus"></i></button>
                                                                         </div>
                                                                     @endif
@@ -764,7 +764,7 @@
                                                                 <div class="col-xl-12 mgn-top-30">
                                                                     <div class="center-align">
                                                                         <button type="button"
-                                                                            class="btn btn-submit-outline">Reset</button>
+                                                                            class="btn btn-submit-outline resetBasic" businessId="{{ $business['id'] }}">Reset</button>
                                                                         <button type="button"
                                                                             class="btn btn-submit-primary updateBusinessInfo" businessId="{{ $business['id'] }}">Update</button>
                                                                     </div>
@@ -836,7 +836,7 @@
                                                         <div class="row" id="headlineData_{{ $business['id'] }}">
                                                             @if (count($business['headlines']) > 0)
                                                                 @foreach ($business['headlines'] as $headKey => $headlineData)
-                                                                    <div class="col-xl-6">
+                                                                    <div class="col-xl-6 {{ $headKey == 0 ? 'headlines_'.$business['id'] : '' }}">
                                                                         <div class="mb-3">
                                                                             <label class="form-label">Headline {{ $headKey > 0 ? $headKey+1 : '' }}</label>
                                                                             <select class="form-select select2 js headline_{{ $business['id'] }}"
@@ -889,8 +889,7 @@
                                                         <div class="row">
                                                             <div class="col-xl-12 mgn-top-30">
                                                                 <div class="btn-wrapper">
-                                                                    <button type="button"
-                                                                        class="btn btn-submit-outline">Reset</button>
+                                                                    <button type="button" class="btn btn-submit-outline resetPageContent" businessId="{{ $business['id'] }}">Reset</button>
                                                                     <button type="button"
                                                                         class="btn btn-submit-primary updatePageContent" businessId="{{ $business['id'] }}" id="updatePageContent">Update</button>
                                                                 </div>
@@ -949,22 +948,22 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <div class="col-xl-12">
+                                                                        <div class="col-xl-6">
                                                                             <div class="mb-3">
-                                                                                <label class="form-label">Offer Description</label>
-                                                                                <textarea class="form-control" name="offer_description" 
-                                                                                    id="exampleFormControlTextarea1"
-                                                                                    rows="3">{{ $offer->description }}</textarea>
+                                                                                <label class="form-label">Offer percentage</label>
+                                                                                <input type="number" class="form-control"
+                                                                                    placeholder="60" name="offer_amount" id="offer_amount_{{ $business['id'] }}" value="{{ $offer->offer_amount }}">
+                                                                                <span class="text-danger d-none" id="amount_error_{{ $business['id'] }}">Offer cannot be empty</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <div class="col-xl-12 mgn-top-10">
-                                                                            <div class="btn-wrapper">
-                                                                                <button type="button"
-                                                                                    class="btn btn-submit-outline">Reset</button>
-                                                                                <button type="button"
-                                                                                    class="btn btn-submit-primary addOffer" businessId="{{ $business['id'] }}">Add</button>
+                                                                        <div class="col-xl-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Offer Description</label>
+                                                                                <textarea class="form-control" name="offer_description" 
+                                                                                    id="offer_description_{{ $business['id'] }}"
+                                                                                    rows="3">{{ $offer->description }}</textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1013,26 +1012,36 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="col-xl-12">
+                                                                    <div class="col-xl-6">
                                                                         <div class="mb-3">
-                                                                            <label class="form-label">Offer Description</label>
-                                                                            <textarea class="form-control" name="offer_description" 
-                                                                                id="exampleFormControlTextarea1"
-                                                                                rows="3"></textarea>
+                                                                            <label class="form-label">Offer percentage</label>
+                                                                            <input type="number" class="form-control"
+                                                                                placeholder="60" name="offer_amount" id="offer_amount_{{ $business['id'] }}">
+                                                                            <span class="text-danger d-none" id="amount_error_{{ $business['id'] }}">Offer cannot be empty</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="col-xl-12 mgn-top-10">
-                                                                        <div class="btn-wrapper">
-                                                                            <button type="button"
-                                                                                class="btn btn-submit-outline">Reset</button>
-                                                                            <button type="button"
-                                                                                class="btn btn-submit-primary addOffer" businessId="{{ $business['id'] }}">Add</button>
+                                                                    <div class="col-xl-12">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label">Offer Description</label>
+                                                                            <textarea class="form-control" name="offer_description" 
+                                                                                id="offer_description_{{ $business['id'] }}"
+                                                                                rows="3"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             @endif
+                                                            <div class="row">
+                                                                <div class="col-xl-12 mgn-top-10">
+                                                                    <div class="btn-wrapper">
+                                                                        <button type="button"
+                                                                            class="btn btn-submit-outline resetOffer" businessId="{{ $business['id'] }}">Reset</button>
+                                                                        <button type="button"
+                                                                            class="btn btn-submit-primary addOffer" businessId="{{ $business['id'] }}">Add</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -1255,114 +1264,45 @@
                                 <div class="savd-content">
                                     <h3 class="custom-h"><span>Saved Items</span></h3>
                                     <div class="listing-wrapper">
-                                        <a href="detailpage.html" class="listing-card">
-                                            <div class="content">
-                                                <div class="image-wrapper">
-                                                    <img src="https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                                                        alt="image">
-                                                </div>
-                                                <div class="txt-section">
-                                                    <div class="flex-container top-section">
-                                                        <h5>This is a heading This is a heading</h5>
-                                                        <div class="right-align">
-                                                            <button class="btn btn-save"><i
-                                                                    class="fas fa-heart"></i></button>
-                                                        </div>
+                                        @foreach ($savedItems as $savedItem)
+                                            <a href="{{ url('/detail/'. base64_encode($savedItem['id'])) }}" class="listing-card">
+                                                <div class="content">
+                                                    <div class="image-wrapper">
+                                                        @if (!empty($savedItem['profile_photo']))
+                                                            <img src="{{ asset('images/business/' . $savedItem['id'] . '/' . $savedItem['profile_photo']) }}"
+                                                            alt="profile-image">
+                                                        @else
+                                                            <img src="{{ asset('images/default-business.png') }}" alt="profile-image">
+                                                        @endif
                                                     </div>
-                                                    <div class="flex-container bottom-section">
-                                                        <div class="btn-warpper">
-                                                            <p>Hospital</p>
-                                                            <p>Kochi, Kerala</p>
+                                                    <div class="txt-section">
+                                                        <div class="flex-container top-section">
+                                                            <h5>{{ $savedItem['business_name'] }}</h5>
+                                                            <div class="right-align">
+                                                                <button class="btn btn-save"><i
+                                                                        class="fas fa-heart"></i></button>
+                                                            </div>
                                                         </div>
-                                                        <div class="overall-rating">
-                                                            <i class="fas fa-star-half-alt"></i>
-                                                            <p>4.6</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="listing-card">
-                                            <div class="content">
-                                                <div class="image-wrapper">
-                                                    <img src="https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                                                        alt="image">
-                                                </div>
-                                                <div class="txt-section">
-                                                    <div class="flex-container top-section">
-                                                        <h5>This is a heading This is a heading</h5>
-                                                        <div class="right-align">
-                                                            <button class="btn btn-save"><i
-                                                                    class="fas fa-heart"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-container bottom-section">
-                                                        <div class="btn-warpper">
-                                                            <p>Hospital</p>
-                                                            <p>Kochi, Kerala</p>
-                                                        </div>
-                                                        <div class="overall-rating">
-                                                            <i class="fas fa-star-half-alt"></i>
-                                                            <p>4.6</p>
+                                                        <div class="flex-container bottom-section">
+                                                            <div class="btn-warpper">
+                                                                <p>{{ $savedItem['category'] }}</p>
+                                                                <p>{{ $savedItem['city'] . ', ' . $savedItem['state'] }}</p>
+                                                            </div>
+                                                            @if (!empty($savedItem['rating']['rating_avg'] ))
+                                                                <div class="overall-rating">
+                                                                    @if ($savedItem['rating']['rating_avg'] > 4.6)
+                                                                        <i class="fas fa-star"></i>
+                                                                    @else
+                                                                        <i class="fas fa-star-half-alt"></i>
+                                                                    @endif
+                                                                    <p>{{ $savedItem['rating']['rating_avg'] }}</p>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="listing-card">
-                                            <div class="content">
-                                                <div class="image-wrapper">
-                                                    <img src="https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                                                        alt="image">
-                                                </div>
-                                                <div class="txt-section">
-                                                    <div class="flex-container top-section">
-                                                        <h5>This is a heading This is a heading</h5>
-                                                        <div class="right-align">
-                                                            <button class="btn btn-save"><i
-                                                                    class="fas fa-heart"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-container bottom-section">
-                                                        <div class="btn-warpper">
-                                                            <p>Hospital</p>
-                                                            <p>Kochi, Kerala</p>
-                                                        </div>
-                                                        <div class="overall-rating">
-                                                            <i class="fas fa-star-half-alt"></i>
-                                                            <p>4.6</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="listing-card">
-                                            <div class="content">
-                                                <div class="image-wrapper">
-                                                    <img src="https://images.pexels.com/photos/1020016/pexels-photo-1020016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                                                        alt="image">
-                                                </div>
-                                                <div class="txt-section">
-                                                    <div class="flex-container top-section">
-                                                        <h5>This is a heading This is a heading</h5>
-                                                        <div class="right-align">
-                                                            <button class="btn btn-save"><i
-                                                                    class="fas fa-heart"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-container bottom-section">
-                                                        <div class="btn-warpper">
-                                                            <p>Hospital</p>
-                                                            <p>Kochi, Kerala</p>
-                                                        </div>
-                                                        <div class="overall-rating">
-                                                            <i class="fas fa-star-half-alt"></i>
-                                                            <p>4.6</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        @endforeach
 
                                     </div>
                                 </div>
@@ -1541,7 +1481,7 @@
     <!------------------------------------------------------------------Cover Pic Change Pop up---------------------------------------------------->
     <div class="modal fade" id="coverImagePop" tabindex="-1" role="dialog" aria-labelledby="coverImagePopLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width: 1100px;">
             <div class="modal-content">
                 <div class="modal-header flex-heading nopad">
                     <h3 class="custom-h text-center"><span>Crop</span> Cover Image</h3>
@@ -1576,7 +1516,9 @@
 
     <script src="{{ asset('js/custom/profile.js') }}"></script>
 
-    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <!-- <script type="text/javascript" src='https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAHP1MaKol9sOqu0SdtES0BucCP9Ckw4Ak'></script> -->
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAHP1MaKol9sOqu0SdtES0BucCP9Ckw4Ak'></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHP1MaKol9sOqu0SdtES0BucCP9Ckw4Ak&callback=initMap"></script> -->
     <script src="{{ asset('js/locationPicker/locationpicker.jquery.min.js') }}"></script>
     <script>
         $(businesses).each(function(i, item) {

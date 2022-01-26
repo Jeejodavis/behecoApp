@@ -126,4 +126,10 @@ class BusinessController extends Controller
     	$data = $this->businessService->offersList($request);
 		echo json_encode(['status' => 'success', 'data' => $data]);
     }
+
+    function submitSavedItem(Request $request)
+    {
+    	$data = $this->businessService->submitSavedItem($request);
+		echo json_encode(['status' => 'success']);	
+    }
 }

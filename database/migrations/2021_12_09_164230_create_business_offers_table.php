@@ -18,6 +18,7 @@ class CreateBusinessOffersTable extends Migration
             $table->unsignedBigInteger('business_id');
             $table->string('offer_image')->nullable();
             $table->string('heading');
+            $table->double('offer_amount', 8, 2);
             $table->string('location');
             $table->text('description')->nullable();
             $table->foreign('business_id')->references('id')->on('beheco_user_business')->onDelete('cascade');

@@ -66,3 +66,4 @@ Route::post('updateBusinesspageContent', [BusinessController::class, 'updatePage
 Route::post('updateBusinessOffer', [BusinessController::class, 'updateBusinessOffer']);
 Route::get('offers', [BusinessController::class, 'offers']);
 Route::get('offersList', [BusinessController::class, 'offersList']);
+Route::post('submitSavedItem', [BusinessController::class, 'submitSavedItem']);
