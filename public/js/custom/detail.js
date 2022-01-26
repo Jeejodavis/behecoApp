@@ -369,3 +369,36 @@ $('#submitReply').click(function() {
 
     });
 });
+
+$('.savedItem').click(function() {
+    var businessId = $(this).attr('businessId');
+    var type = $(this).attr('saveType');
+    var thisval = $(this);
+    $.ajax({
+        url: base_url+'/submitSavedItem',
+        type: 'POST',
+        data: {
+            'businessId': businessId,
+            'type': type
+        },
+        async: false,
+        success: function (data) {
+            var datas = JSON.parse(data);
+            if (datas.status == 'success')
+            {
+                if (type == 'add') {
+                    thisval.attr('saveType', 'remove');
+                    $('#successText').text('Added to saved items');
+                } else {
+                    thisval.attr('saveType', 'add');
+                    $('#successText').text('Removed from saved items');
+                }
+                $('#Success').modal('show');
+            }
+        },
+        error: function (xhr) {
+            alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+        }
+
+    });
+});

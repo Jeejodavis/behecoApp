@@ -147,9 +147,9 @@
                                         @endif
                                     </div>
                                     <span>{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</span>
-                                    <span>
+                                    <!-- <span>
                                         <p class="badge bg-primary">New</p>
-                                    </span>
+                                    </span> -->
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>

@@ -17,6 +17,7 @@ use App\Models\BusinessOffers;
 use App\Models\BusinessQuestions;
 use App\Models\BusinessSocialMedia;
 use App\Models\BusinessHeadlines;
+use App\Models\UserSavedItems;
 use Illuminate\Support\Facades\Storage;
 
 use File;
@@ -50,6 +51,7 @@ class BusinessService {
 			'category' => $detail->category->category_name,
 			'city' => $detail->city->city_name,
 			'state' => $detail->stateData->state_name,
+			'social_medias' => $detail->socialMedia()->with('socialMediaData')->get()->toArray(),
 			'photos' => $detail->photos()->limit(18)->offset(0)->get(),
 			'photoCount' => $detail->photos->count(),
 			'offers' => $detail->offers,
@@ -197,18 +199,12 @@ class BusinessService {
 	public function addBusinessPhotos(Request $request)
 	{
 		$businessId = $request->businessId;
-		$coverPhoto = $request->file('fileselect-cover');
-		$profilePhoto = $request->file('fileselect');
 		$photos = $request->file('fileImage');
-		$photoCount = count($photos);
+		$photoCount = !empty($photos) ? count($photos) : 0;
 		$coverName = $profileName = '';
 		$this->deleteBusinessPhotos($businessId);
-		if (!empty($coverPhoto)) {
-			$coverName = $this->uploadBusinessPhoto($businessId, $coverPhoto, 'cover', 1);
-		}
-		if (!empty($profilePhoto)) {
-			$profileName = $this->uploadBusinessPhoto($businessId, $profilePhoto, 'profile', 2);
-		}
+		$coverName = $this->uploadCoverProfilePhoto($businessId, $request->coverImgData, 1);
+		$profileName = $this->uploadCoverProfilePhoto($businessId, $request->profileImgData, 2);
 		if ($photoCount > 0) {
 			$photoFiles = [];
 			for ($i = 0; $i < $photoCount; $i++) {
@@ -219,6 +215,35 @@ class BusinessService {
 		}
 		UserBusiness::where('id', $businessId)->update(['profile_photo' => $profileName, 'cover_photo' => $coverName]);
 		return true;
+	}
+
+	public function uploadCoverProfilePhoto($businessId, $baseString, $inc)
+	{
+		$fileName = '';
+		if (preg_match('/^data:image\/(\w+);base64,/', $baseString, $type)) {
+
+            $data = substr($baseString, strpos($baseString, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif
+
+            // if (!in_array($type, [ 'jpg', 'jpeg', 'png' ])) {
+            //     $responce['status'] = 'invalid';
+            //     return $responce;
+            // }
+
+            $data = base64_decode($data);
+
+            // if ($data === false) {
+            //    $responce['status'] = 'fail';
+            //    return $responce;
+            // }
+            $fileName = time(). $inc .'.'.$type;
+            $path = public_path().'/images/business/'.$businessId.'/';
+	        if (!file_exists($path)) {
+	            mkdir($path, 0777, true);
+	        }
+            file_put_contents($path . $fileName, $data);
+        }
+        return $fileName;
 	}
 
 	public function uploadBusinessPhoto($businessId, $photo, $type, $inc)
@@ -239,16 +264,18 @@ class BusinessService {
 	public function deleteBusinessPhotos($businessId)
 	{
 		$profilePhotos = UserBusiness::where('id', $businessId)->select('profile_photo', 'cover_photo')->first();
-		if (!empty($profilePhotos->profile_photo))
-			unlink(public_path().'/images/business/'.$businessId.'/'.$profilePhotos->profile_photo);
+		$filePath = public_path().'/images/business/'.$businessId.'/';
+		if (!empty($profilePhotos->profile_photo) && file_exists($filePath.$profilePhotos->profile_photo))
+			unlink($filePath.$profilePhotos->profile_photo);
 
-		if (!empty($profilePhotos->cover_photo))
-			unlink(public_path().'/images/business/'.$businessId.'/'.$profilePhotos->cover_photo);
+		if (!empty($profilePhotos->cover_photo) && file_exists($filePath.$profilePhotos->cover_photo))
+			unlink($filePath.$profilePhotos->cover_photo);
 
 		$photos = BusinessPhotos::where('business_id', $businessId)->select('photo')->get();
 		if (!empty($photos)) {
 			foreach ($photos as $pkey => $value) {
-				unlink(public_path().'/images/business/'.$businessId.'/photos/'.$value->photo);
+				if (file_exists($filePath.'photos/'.$value->photo))
+					unlink($filePath.'photos/'.$value->photo);
 			}
 			BusinessPhotos::where('business_id', $businessId)->delete();
 		}
@@ -387,6 +414,7 @@ class BusinessService {
 		$image = $request->file('imgae');
 		$aData = [
 			'heading' => $request->offer_heading,
+			'offer_amount' => $request->offer_amount,
 			'location' => $request->offer_location,
 			'description' => $request->offer_description,
 		];
@@ -445,6 +473,22 @@ class BusinessService {
 			$offerList = $offerList->where('beheco_user_business.category_id', $category);
         $offerList = $offerList->select('beheco_business_offers.*', 'beheco_user_business.business_name')->get();
         return $offerList;
+	}
+
+	public function submitSavedItem(Request $request)
+	{
+		if ($request->type == 'add') {
+			$aData = [
+				'user_id' => auth()->user()->id,
+				'business_id' => $request->businessId,
+				'created_at' => date('Y-m-d H:i:s')
+			];
+
+			UserSavedItems::updateOrCreate(['user_id' => auth()->user()->id, 'business_id' => $request->businessId], ['created_at' => date('Y-m-d H:i:s')]);
+		} else {
+			UserSavedItems::where('user_id', auth()->user()->id)->where('business_id', $request->businessId)->delete();
+		}
+		return true;
 	}
 
 }

@@ -1,6 +1,32 @@
     
     @include('includes.header')
 
+    <style type="text/css">
+        #img-crop-cover #result-cover #close-cover {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #059762;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background-color: #059762 !important;
+            background: url(//img.icons8.com/material/48/ffffff/multiply.png) 50% 50% no-repeat;
+            background-size: 55%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+    </style>
+
     <link rel='stylesheet' href="{{ asset('css/lightgallery.css') }}">
 
 <!------------------------------------------------------------------Banner------------------------------------------------------------------>
@@ -282,7 +308,7 @@
                                                     <div class="col-xl-12">
                                                         <div class="center-align">
                                                             <button type="button"
-                                                                class="btn btn-submit-outline">Reset</button>
+                                                                class="btn btn-submit-outline" id="basicReset">Reset</button>
                                                             <button type="button"
                                                                 class="btn btn-submit-primary" id="basic_next">Next</button>
                                                         </div>
@@ -309,13 +335,14 @@
                                         <div class="cover-image-wrapper">
                                             <h3 class="custom-h text-center">Add <span>Cover Picture</span></h3>
                                             <div class="file-cropper">
-                                                <div id="img-crop-cover">
+                                                <div id="img-crop-cover" style="overflow: hidden;">
                                                     <div id="upload-cover">
                                                         <div class="block">
                                                             <div class="stage">
                                                                 <label id="filedrag-cover">
                                                                     <input type="file" id="fileselect-cover"
                                                                         name="fileselect-cover" accept="image/*" />
+                                                                    <textarea style="display: none;" name="coverImgData"></textarea>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -327,18 +354,18 @@
                                                             <div id="croppie-cover"></div>
                                                             <div class="btn-wrapper">
                                                                 <button type="button" class="btn btn-crop" id="prev-cover"
-                                                                    onclick="cropCancel();">Clear</button>
+                                                                    onclick="covercropCancel();">Clear</button>
                                                                 <button type="button" class="btn btn-crop" id="next-cover"
-                                                                    onclick="cropResult();">Set</button>
+                                                                    onclick="covercropResult();">Set</button>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <div id="result-cover">
                                                         <button type="button" class="btn" id="close-cover"
-                                                            onclick="cropCancel();"></button>
+                                                            onclick="covercropCancel();"></button>
                                                         <div class="block">
-                                                            <div class="stage"><img src="" /></div>
+                                                            <div class="stage"><img src="" id="coverImg" /></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -356,6 +383,7 @@
                                                                     <label id="filedrag">
                                                                         <input type="file" id="fileselect" name="fileselect"
                                                                             accept="image/*" />
+                                                                        <textarea style="display: none;" name="profileImgData"></textarea>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -377,7 +405,7 @@
                                                         <div id="result">
                                                             <button type="button" class="btn" id="close" onclick="cropCancel();"></button>
                                                             <div class="block">
-                                                                <div class="stage"><img src="" /></div>
+                                                                <div class="stage"><img src="" id="profileImg" /></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -401,7 +429,7 @@
                                         <div class="row">
                                             <div class="col-xl-12 mgn-top-30">
                                                 <div class="center-align">
-                                                    <button type="button" class="btn btn-submit-outline">Previous</button>
+                                                    <button type="button" class="btn btn-submit-outline" id="photoPrev">Previous</button>
                                                     <button type="button" class="btn btn-submit-primary" id="addPhotos">Next</button>
                                                 </div>
                                             </div>
@@ -454,7 +482,7 @@
                                     <div class="row">
                                         <div class="col-xl-12 mgn-top-30">
                                             <div class="center-align">
-                                                <button type="button" class="btn btn-submit-outline">Previous</button>
+                                                <button type="button" class="btn btn-submit-outline" id="locationPrev">Previous</button>
                                                 <button type="button" class="btn btn-submit-primary" id="locationAdd">Next</button>
                                             </div>
                                         </div>
@@ -504,7 +532,7 @@
                                     <div class="row">
                                         <div class="col-xl-12 mgn-top-30">
                                             <div class="center-align">
-                                                <button type="button" class="btn btn-submit-outline">Previous</button>
+                                                <button type="button" class="btn btn-submit-outline" id="keywordPrev">Previous</button>
                                                 <button type="button" class="btn btn-submit-primary" id="keywordSubmit">Submit</button>
                                             </div>
                                         </div>
