@@ -50,12 +50,12 @@
                                     <i class="far fa-building"></i> My Business
                                 </div>
                             </a>
-                            <a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab3">
+                            <a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab3" id="savedItemsTab">
                                 <div class="title-wrapper">
                                     <i class="far fa-heart"></i> Saved Items
                                 </div>
                             </a>
-                            <a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab5">
+                            <a href="javascript:void(0)" class="js-vertical-tab vertical-tab" rel="tab5" id="notificationTab">
                                 <div class="title-wrapper">
                                     <i class="far fa-bell"></i> Notifications
                                 </div>

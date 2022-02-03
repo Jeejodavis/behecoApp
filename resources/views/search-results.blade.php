@@ -225,12 +225,19 @@
                                 <div class="listing-wrapper" id="businessList">
                                     @if (count($businesses) > 0)
                                         @foreach ($businesses as $business)
-                                        <a href="{{ url('/detail/'.  base64_encode($business['id'])) }}" class="listing-card">
+                                            <?php $url = url('/detail/' . base64_encode($business['id'])); ?>
+                                            @if ($business['type'] != 'business')
+                                                <?php $url = url('/freelancer/'. base64_encode($business['id'])); ?>
+                                            @endif
+                                            <a href="{{ $url }}" class="listing-card">
                                             <div class="content">
                                                 <div class="image-wrapper">
                                                     @if (!empty($business['profile_photo']))
-                                                        <img src="{{ asset('images/business/' . $business['id'] . '/' . $business['profile_photo']) }}"
-                                                        alt="profile-image">
+                                                        @if ($business['type'] == 'business')
+                                                            <img src="{{ asset('images/business/' . $business['id'] . '/' . $business['profile_photo']) }}" alt="profile-image">
+                                                        @else
+                                                            <img src="{{ asset('images/freelancer/' . $business['id'] . '/' . $business['profile_photo']) }}" alt="profile-image">
+                                                        @endif
                                                     @else
                                                         <img src="{{ asset('images/default-business.png') }}" alt="profile-image">
                                                     @endif

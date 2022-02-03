@@ -245,3 +245,4 @@ $('.filterCheckbox').change(function() {
         },
     });
 });
+

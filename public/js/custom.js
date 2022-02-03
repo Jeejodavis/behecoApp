@@ -156,14 +156,17 @@ $.each(instance, function (key, value) {
         }
 
         const allDots = dots.querySelectorAll(".dot");
-        allDots[0].classList.add("active-dot");
+        if (typeof allDots[0]  !== "undefined")
+            allDots[0].classList.add("active-dot");
 
-        sliderImgs[0].style.left = "0";
-        timeout = setTimeout(() => {
-            animateSlider();
-            sliderImgs[0].style.left = "";
-            intrvl = setInterval(animateSlider, interval);
-        }, interval - animDuration);
+        if (typeof sliderImgs[0]  !== "undefined") {
+            sliderImgs[0].style.left = "0";
+            timeout = setTimeout(() => {
+                animateSlider();
+                sliderImgs[0].style.left = "";
+                intrvl = setInterval(animateSlider, interval);
+            }, interval - animDuration);
+        }
 
         /**
          * Animates images

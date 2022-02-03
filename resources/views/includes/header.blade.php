@@ -153,15 +153,15 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>
-                                    <li><a class="dropdown-item flx-v-cntr" href="#">
+                                    <li><a class="dropdown-item flx-v-cntr" href="{{ url('/profile#notifications') }}">
                                             <div class="content-count">
                                                 <span>Notifications</span>
-                                                <span>
+                                                <!-- <span>
                                                     <h6 class="badge bg-primary">1</h6>
-                                                </span>
+                                                </span> -->
                                             </div>
                                         </a></li>
-                                    <li><a class="dropdown-item" href="#">Saved Items</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/profile#savedItems') }}">Saved Items</a></li>
                                     <li><a class="dropdown-item" href="{{ url('/logout') }}">Sign Out</a></li>
                                 </ul>
                             </div>

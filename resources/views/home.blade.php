@@ -631,250 +631,81 @@
                 <h2 class="hs__headline common-h2 gs_reveal">Suggested <span>Freelancers</span>
                 </h2>
                 <div class="navigation-btns hs__arrows">
-                    <button type="button" class="btn btn-secondary arrow disabled arrow-prev mgn-rgt-20">
-                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.6 18.3"
-                            style="enable-background:new 0 0 31.6 18.3;" xml:space="preserve" width="30px">
+                    @if (count($freelancers) > 3)
+                        <button type="button" class="btn btn-secondary arrow disabled arrow-prev mgn-rgt-20">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.6 18.3"
+                                style="enable-background:new 0 0 31.6 18.3;" xml:space="preserve" width="30px">
 
-                            <path id="Path_30" class="arrow-prev"
-                                d="M22.5,0.7l-1.4,1.4l6.1,6.1H0.5v1.9h26.7l-6.1,6.1l1.4,1.4l8.4-8.4L22.5,0.7z" />
-                        </svg>
-                    </button>
-                    <button htype="button" class="btn btn-primary arrow arrow-next" aria-label="Next">
-                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.6 18.3"
-                            style="enable-background:new 0 0 31.6 18.3;" xml:space="preserve" width="30px">
+                                <path id="Path_30" class="arrow-prev"
+                                    d="M22.5,0.7l-1.4,1.4l6.1,6.1H0.5v1.9h26.7l-6.1,6.1l1.4,1.4l8.4-8.4L22.5,0.7z" />
+                            </svg>
+                        </button>
+                        <button htype="button" class="btn btn-primary arrow arrow-next" aria-label="Next">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.6 18.3"
+                                style="enable-background:new 0 0 31.6 18.3;" xml:space="preserve" width="30px">
 
-                            <path id="Path_30" class="arrow-next"
-                                d="M22.5,0.7l-1.4,1.4l6.1,6.1H0.5v1.9h26.7l-6.1,6.1l1.4,1.4l8.4-8.4L22.5,0.7z" />
-                        </svg>
-                    </button>
+                                <path id="Path_30" class="arrow-next"
+                                    d="M22.5,0.7l-1.4,1.4l6.1,6.1H0.5v1.9h26.7l-6.1,6.1l1.4,1.4l8.4-8.4L22.5,0.7z" />
+                            </svg>
+                        </button>
+                    @endif
                 </div>
             </div>
             <div class="hs__wrapper">
-                <ul class="hs">
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
+                <ul class="hs" style="float: left;">
+                    @foreach($freelancers as $freelancer)
+                        <li class="hs__item gs_reveal">
+                            <a href="" class="content-box box-sm">
+                                <div class="cover-image">
+                                    @if (!empty($freelancer['cover_photo']))
+                                        <img src="{{ asset('images/freelancer/' . $freelancer['id'] . '/' . $freelancer['cover_photo']) }}" alt="image">
+                                    @else
+                                        <img src="{{ asset('images/detail-cover.jpeg') }}" alt="image">
+                                    @endif
 
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button class="save-btn btn nopad">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
+                                </div>
+                                <div class="profile-image">
+                                    @if (!empty($freelancer['profile_photo']))
+                                        <img src="{{ asset('images/freelancer/' . $freelancer['id'] . '/' . $freelancer['profile_photo']) }}" alt="image">
+                                    @else
+                                        <img src="{{ asset('images/default-business.png') }}" alt="image">
+                                    @endif
+                                    <button class="save-btn btn nopad">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
 
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
+                                <div class="freelancer-info">
+                                    <div class="info-content">
+                                        <div class="content">
+                                            <h5>{{ $freelancer['freelancer_name'] }}</h5>
+                                            <p>{{ $freelancer['category'] }}</p>
+                                            <p>{{ $freelancer['city'] . ', ' . $freelancer['state'] }}</p>
+                                            <div class="overall-rating">
+                                                @if ($freelancer['rating'] == 0)
+                                                    <i class="far fa-star"></i>
+                                                @elseif ($freelancer['rating'] > 4.6)
+                                                    <i class="fas fa-star"></i>
+                                                @else
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                @endif
+                                                <p>{{ $freelancer['rating'] }}</p>
+                                            </div>
+
                                         </div>
 
                                     </div>
-
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
-
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button type="button" class="save-btn btn nopad">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                            </div>
-
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
-
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button class="save-btn btn nopad">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
-
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button class="save-btn btn nopad">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
-
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button class="save-btn btn nopad">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
-
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button class="save-btn btn nopad">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="hs__item gs_reveal">
-                        <a href="" class="content-box box-sm">
-                            <div class="cover-image">
-                                <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg?cs=srgb&dl=pexels-tom%C3%A1%C5%A1-mal%C3%ADk-1660995.jpg&fm=jpg"
-                                    alt="image">
-
-                            </div>
-                            <div class="profile-image">
-                                <img src="{{ asset('images/mun.jpg') }}" alt="image">
-                                <button class="save-btn btn nopad">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-
-                            <div class="freelancer-info">
-                                <div class="info-content">
-                                    <div class="content">
-                                        <h5>Jacob Kurian</h5>
-                                        <p>Photographer</p>
-                                        <p>Kochi, India</p>
-                                        <div class="overall-rating">
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <p>4.6</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
-            <div class="center-align">
+            <!-- <div class="center-align">
                 <button type="button" class="btn btn-view-all gs_reveal">View All</button>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- -----------------------------------------------------------------Full screen ad---------------------------------------------------------->

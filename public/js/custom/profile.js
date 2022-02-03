@@ -748,3 +748,15 @@ $('.resetOffer').click(function() {
     $('#offer_description_'+businessId).val('');
     $('html, body').animate({scrollTop:$('#businessInform_'+businessId).offset().top});
 });
+
+$(document).ready(function() {
+    var pathname = window.location.hash;
+    if (pathname == '#notifications') {
+        $('#notificationTab').trigger('click');
+        $('html, body').animate({scrollTop:$('#tab5').offset().top});
+    }
+    if (pathname == '#savedItems') {
+        $('#savedItemsTab').trigger('click');
+        $('html, body').animate({scrollTop:$('#tab3').offset().top});
+    }
+});

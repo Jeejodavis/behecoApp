@@ -150,7 +150,7 @@
                                 <div class="mb-3 d-grid">
                                     <input type="radio" class="btn-check" name="options" id="option2"
                                         autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="option2">Freelancer</label>
+                                    <label class="btn btn-outline-primary" onclick="location.href = '<?= url('/new-freelancer') ?>'" for="option2">Freelancer</label>
                                 </div>
                                 <div class=" d-grid">
                                     <input type="radio" class="btn-check" name="options" id="option4"
